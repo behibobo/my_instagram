@@ -2,7 +2,7 @@ class PostSerializer < ActiveModel::Serializer
   attributes :id, :body, :user, :image, :created_at
 
   def user
-    object.user.full_name
+    ActiveModelSerializers::SerializableResource.new(object.user)
   end
 
   def image
