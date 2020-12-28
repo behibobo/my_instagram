@@ -23,6 +23,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    posts = Post.where(user:current_user).order(created_at: :desc)
+    render json: {user: ActiveModelSerializers::SerializableResource.new(current_user), 
+      posts: ActiveModelSerializers::SerializableResource.new(posts)}
+  end
 
   def auto_login
     render json: @user

@@ -27,6 +27,10 @@
 /storage/*
 !/storage/.keep
 .byebug_history
+public/uploads
+public/uploads/*
+/public/uploads
+/public/uploads/*
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

@@ -9,4 +9,17 @@ class UploaderController < ApplicationController
             end
         end
     end
+
+
+    def avatar
+        if params[:image]
+            image = Image.new(image: params[:image])
+            if image.save!
+                current_user.update(avatar: image.image.url)
+                render json: current_user, status: :created
+            else 
+                render json: [], status: :unprocessable_entity
+            end
+        end
+    end
 end
