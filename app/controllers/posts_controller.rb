@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.order(created_at: :desc).where(user: current_user)
+    @posts = Post.order(created_at: :desc)
     render json: @posts
   end
 
