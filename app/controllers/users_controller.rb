@@ -1,6 +1,18 @@
 class UsersController < ApplicationController
-	before_action :authorized, only: [:auto_login]
+	before_action :authorized, only: [:auto_login, :index]
   
+  def index
+    user_ids = User.all.pluck(:id)
+    if params[:q]
+      user_ids = user_ids & User.contains('first_name', params[:q]).pluck(:id)
+      user_ids =  user_ids + User.contains('last_name', params[:q]).pluck(:id)
+      user_ids =  user_ids + User.contains('email', params[:q]).pluck(:id)
+    end
+    users = User.where(id: user_ids)
+    render json: users
+  end
+
+
   def create
     @user = User.create(user_params)
     if @user.valid?

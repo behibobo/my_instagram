@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'avatar', to: "uploader#avatar"
   get 'profile', to: "users#profile"
   resources :posts
+  get "/users", to: "users#index"
   post "/login", to: "users#login"
   post "/register", to: "users#create"
   get '/', to: 'home#index'

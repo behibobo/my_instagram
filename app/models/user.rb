@@ -4,8 +4,9 @@ class User < ApplicationRecord
     validates_uniqueness_of(:email)
     
     has_many :posts, dependent: :destroy
-    def self.starts_with(column_name, prefix)
-        where("lower(#{column_name}) like ?", "#{prefix.downcase}%")
+    
+    def self.contains(column_name, prefix)
+        where("lower(#{column_name}) like ?", "%#{prefix.downcase}%")
     end
 
     def full_name
