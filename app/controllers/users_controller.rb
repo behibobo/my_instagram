@@ -36,8 +36,12 @@ class UsersController < ApplicationController
   end
 
   def profile
-    posts = Post.where(user:current_user).order(created_at: :desc)
-    render json: {user: ActiveModelSerializers::SerializableResource.new(current_user), 
+    user = current_user
+    if params[:user_id]
+      user = User.find(params[:user_id])
+    end
+    posts = Post.where(user:user).order(created_at: :desc)
+    render json: {user: ActiveModelSerializers::SerializableResource.new(user), 
       posts: ActiveModelSerializers::SerializableResource.new(posts)}
   end
 
