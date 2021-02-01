@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from: one
+  to: one
+  body: MyText
+  seen: false
+
+two:
+  from: two
+  to: two
+  body: MyText
+  seen: false

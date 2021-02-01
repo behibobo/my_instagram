@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   post "/login", to: "users#login"
   post "/register", to: "users#create"
   get '/', to: 'home#index'
+  get '/direct_messages', to: "direct_messages#index"
+  post '/direct_messages', to: "direct_messages#create"
 end
