@@ -5,6 +5,9 @@ class UserSerializer < ActiveModel::Serializer
     object.full_name
   end
 
+  has_many :followers
+  has_many :followings
+  
   def avatar
     if object.avatar.nil?
       "http://story.coding-lodge.com/user.png"
