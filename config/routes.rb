@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/direct_messages', to: "direct_messages#index"
   post '/direct_messages', to: "direct_messages#create"
 
+  get 'friend/request', to: 'friends#index'
   get 'friend/request/:user_id', to: 'friends#create'
   get 'friend/request/:user_id/accept', to: 'friends#accept_request'
   delete 'friend/request/:user_id', to: 'friends#delete_request'

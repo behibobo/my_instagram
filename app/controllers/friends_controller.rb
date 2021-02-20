@@ -1,5 +1,12 @@
 class FriendsController < ApplicationController
 
+
+  def index
+    friends = Friend.where(followee_id:current_user.id).where(accepted: false)
+    render json: friends, status: :created
+  end 
+
+
   def create
     friend = Friend.first_or_create(follower_id: current_user.id, followee_id: params[:user_id])
     render json: {}, status: :created
