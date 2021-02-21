@@ -8,8 +8,9 @@ class FriendsController < ApplicationController
 
 
   def create
-    friend = Friend.first_or_create(follower_id: current_user.id, followee_id: params[:user_id])
-    render json: {}, status: :created
+    friend = Friend.where(follower_id: current_user.id, followee_id: params[:user_id]).first_or_initialize
+    friend.save!
+    render json: friend, status: :created
   end
 
   def accept_request
