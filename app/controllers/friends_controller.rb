@@ -22,8 +22,12 @@ class FriendsController < ApplicationController
   end
 
   def delete_request
-    friend = Friend.find(params[:friend_id])
-    friend.destroy unless friend.nil?
+    following = Friend.where(follower_id: current_user.id, followee_id: params[:user_id]).first
+    following.destroy unless following.nil?
+
+    follower = Friend.where(follower_id: params[:user_id], followee_id: current_user.id).first
+    follower.destroy unless follower.nil?
+
     render json: {}, status: :ok
   end
 
