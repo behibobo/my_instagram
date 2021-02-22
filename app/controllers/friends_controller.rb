@@ -22,7 +22,7 @@ class FriendsController < ApplicationController
   end
 
   def delete_request
-    friend = Friend.find_by!(follower_id: params[:user_id])
+    friend = Friend.where(follower_id: params[:user_id] || followee_id: params[:user_id])
     friend.destroy
 
     render json: {}, status: :ok
