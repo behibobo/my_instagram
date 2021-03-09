@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
 
   def index
     friends = Friend.where(followee_id:current_user.id).where(accepted: false)
-    render json: friends, status: :created
+    render json: friends
   end 
 
 
@@ -21,10 +21,15 @@ class FriendsController < ApplicationController
     render json: {}, status: :ok
   end
 
-  def delete_request
+  def delete_following
     following = Friend.where(follower_id: current_user.id, followee_id: params[:user_id]).first
     following.destroy unless following.nil?
 
+    render json: {}, status: :ok
+  end
+
+
+  def delete_follower
     follower = Friend.where(follower_id: params[:user_id], followee_id: current_user.id).first
     follower.destroy unless follower.nil?
 
