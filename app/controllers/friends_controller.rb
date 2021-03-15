@@ -1,11 +1,9 @@
 class FriendsController < ApplicationController
 
-
   def index
     friends = Friend.where(followee_id:current_user.id).where(accepted: false)
     render json: friends
   end 
-
 
   def create
     friend = Friend.where(follower_id: current_user.id, followee_id: params[:user_id]).first_or_initialize
@@ -14,10 +12,12 @@ class FriendsController < ApplicationController
   end
 
   def accept_request
-    friend = Friend.find_by!(follower_id: params[:user_id])
-    friend.accepted = true
-    friend.save!
-
+    friend = Friend.find_by(followee_id: current_user.id, follower_id: params[:user_id])
+    if friend
+      friend.accepted = true
+      friend.save!
+    end
+    
     render json: {}, status: :ok
   end
 
@@ -28,12 +28,10 @@ class FriendsController < ApplicationController
     render json: {}, status: :ok
   end
 
-
   def delete_follower
     follower = Friend.where(follower_id: params[:user_id], followee_id: current_user.id).first
     follower.destroy unless follower.nil?
 
     render json: {}, status: :ok
   end
-
 end
